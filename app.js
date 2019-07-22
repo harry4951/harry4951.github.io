@@ -16,7 +16,7 @@ function handleHeartRateMeasurement(heartRateMeasurement) {
     var heartRateMeasurement = heartRateSensor.parseHeartRate(event.target.value);
     statusText.innerHTML = heartRateMeasurement.heartRate + ' &#x2764;';
     heartRates.push(heartRateMeasurement.heartRate);
-    console.log(heartRates);
+    //console.log(heartRates);
     drawWaves();
   });
 }
@@ -32,14 +32,18 @@ canvas.addEventListener('click', event => {
 
 function drawWaves() {
   requestAnimationFrame(() => {
-    canvas.width = parseInt(getComputedStyle(canvas).width.slice(0, -2)) * devicePixelRatio;
+    canvas.width = parseInt(getComputedStyle(canvas).width.slice(0, -2)) * devicePixelRatio;//Dynamically changed
     canvas.height = parseInt(getComputedStyle(canvas).height.slice(0, -2)) * devicePixelRatio;
-
     var context = canvas.getContext('2d');
     var margin = 2;
-    var max = Math.max(0, Math.round(canvas.width / 11));
+    var max = Math.max(0, Math.round(canvas.width / 50));//11
     var offset = Math.max(0, heartRates.length - max);
 
+    var height_offset = Math.max(0, Math.round(canvas.height / 3)); 
+    var width_offset = Math.max(0, Math.round(canvas.height / 2));
+    /**
+      * Removes the first element from an heartRates array.
+      */
     if(heartRates.length >= max)
     {
       heartRates.shift();
@@ -51,28 +55,58 @@ function drawWaves() {
       //context.beginPath();
       for (var i = 0; i < Math.max(heartRates.length, max); i++) {
         var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+        context.rect(11 * i + margin + width_offset, canvas.height - barHeight - height_offset - height_offset, margin, Math.max(0, barHeight - margin));
+        context.stroke();
+      }
+
+      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
+        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+        context.rect(11 * i + margin + width_offset, canvas.height - barHeight - height_offset, margin, Math.max(0, barHeight - margin));
+        context.stroke();
+      }
+
+      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
+        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+        context.rect(11 * i + margin + width_offset, canvas.height - barHeight, margin, Math.max(0, barHeight - margin));
+        context.stroke();
+      }
+
+      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
+        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+        context.rect(11 * i + margin, canvas.height - barHeight - height_offset - height_offset, margin, Math.max(0, barHeight - margin));
+        context.stroke();
+      }
+
+      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
+        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+        context.rect(11 * i + margin, canvas.height - barHeight - height_offset, margin, Math.max(0, barHeight - margin));
+        context.stroke();
+      }
+
+      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
+        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
         context.rect(11 * i + margin, canvas.height - barHeight, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
       //context.closePath();
-    } else if (mode === 'line') {
-      context.beginPath();
-      context.lineWidth = 6;
-      context.lineJoin = 'round';
-      context.shadowBlur = '1';
-      context.shadowColor = '#333';
-      context.shadowOffsetY = '1';
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var lineHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
-        if (i === 0) {
-          context.moveTo(11 * i, canvas.height - lineHeight);
-        } else {
-          context.lineTo(11 * i, canvas.height - lineHeight);
-        }
-        context.stroke();
-      }
-      context.closePath();
-    }
+     } //else if (mode === 'line') {
+    //   context.beginPath();
+    //   context.lineWidth = 6;
+    //   context.lineJoin = 'round';
+    //   context.shadowBlur = '1';
+    //   context.shadowColor = '#333';
+    //   context.shadowOffsetY = '1';
+    //   for (var i = 0; i < Math.max(heartRates.length, max); i++) {
+    //     var lineHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+    //     if (i === 0) {
+    //       context.moveTo(11 * i, canvas.height - lineHeight);
+    //     } else {
+    //       context.lineTo(11 * i, canvas.height - lineHeight);
+    //     }
+    //     context.stroke();
+    //   }
+    //   context.closePath();
+    // }
   });
 }
 
