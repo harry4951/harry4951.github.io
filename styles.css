@@ -24,6 +24,36 @@
   -webkit-user-select: none;
 }
 
+#labelText {
+  position: absolute;
+  bottom: 100;
+  left: -75%;
+  right: 0;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 38px;
+  width: 128px;
+  overflow-x: visible;
+  cursor: default;
+  padding: 12px 0;
+  -webkit-user-select: none;
+}
+
+#labelText1 {
+  position: absolute;
+  bottom: 100;
+  left: -30%;
+  right: 0;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 38px;
+  width: 128px;
+  overflow-x: visible;
+  cursor: default;
+  padding: 12px 0;
+  -webkit-user-select: none;
+}
+
 #waves {
   width: 100%;
   height: 100%;

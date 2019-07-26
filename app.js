@@ -13,7 +13,8 @@ statusText.addEventListener('click', function() {
 
 function handleHeartRateMeasurement(heartRateMeasurement) {
   heartRateMeasurement.addEventListener('characteristicvaluechanged', event => {
-    var heartRateMeasurement = heartRateSensor.parseHeartRate(event.target.value);
+    //var heartRateMeasurement = heartRateSensor.parseHeartRate(event.target.value);
+    var heartRateMeasurement = heartRateSensor.parseHeartRate(event);
     statusText.innerHTML = heartRateMeasurement.heartRate + ' &#x2764;';
     heartRates.push(heartRateMeasurement.heartRate);
     //console.log(heartRates);
@@ -53,38 +54,40 @@ function drawWaves() {
     context.strokeStyle = '#00796B';
     if (mode === 'bar') {
       //context.beginPath();
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+      for (var i = 0; i < Math.max(heartRates.length, max) - 1; i++) {
+        //var barHeight = Math.round(heartRates[i + offset ][0] * canvas.height / 200);
+        var barHeight = Math.round((heartRates[i + offset ][0]) * canvas.height / 200000);
+        //console.log(barHeight);
         context.rect(11 * i + margin + width_offset, canvas.height - barHeight - height_offset - height_offset, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
 
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+      for (var i = 0; i < Math.max(heartRates.length, max)- 1; i++) {
+        var barHeight = Math.round((heartRates[i + offset ][1]) * canvas.height / 200000);
         context.rect(11 * i + margin + width_offset, canvas.height - barHeight - height_offset, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
 
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+      for (var i = 0; i < Math.max(heartRates.length, max)- 1; i++) {
+        var barHeight = Math.round((heartRates[i + offset ][2]) * canvas.height / 200000);
         context.rect(11 * i + margin + width_offset, canvas.height - barHeight, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
 
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+      for (var i = 0; i < Math.max(heartRates.length, max)- 1; i++) {
+        var barHeight = Math.round((heartRates[i + offset ][3]) * canvas.height / 200000);
         context.rect(11 * i + margin, canvas.height - barHeight - height_offset - height_offset, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
 
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+      for (var i = 0; i < Math.max(heartRates.length, max)- 1; i++) {
+        var barHeight = Math.round((heartRates[i + offset ][4]) * canvas.height / 200000);
         context.rect(11 * i + margin, canvas.height - barHeight - height_offset, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
 
-      for (var i = 0; i < Math.max(heartRates.length, max); i++) {
-        var barHeight = Math.round(heartRates[i + offset ] * canvas.height / 200);
+      for (var i = 0; i < Math.max(heartRates.length, max)- 1; i++) {
+        var barHeight = Math.round((heartRates[i + offset ][5]) * canvas.height / 200000);
         context.rect(11 * i + margin, canvas.height - barHeight, margin, Math.max(0, barHeight - margin));
         context.stroke();
       }
